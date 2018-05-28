@@ -72,6 +72,14 @@ module Replidog
       @proxies.each_value(&:clear_query_cache_for_slaves)
     end
 
+    def all_slave_connection_pools
+      pools = []
+      @proxies.each_value do |proxy|
+        pools += proxy.slave_connection_pools
+      end
+      pools
+    end
+
     private
 
     def connection_pool_list_for(connection_handler)

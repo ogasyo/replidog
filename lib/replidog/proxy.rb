@@ -67,7 +67,6 @@ module Replidog
 
     def clear_all_slave_connections!
       slave_connection_pool_table.each_value do |pool|
-        pool.automatic_reconnect = false
         pool.disconnect!
       end
     end
@@ -100,6 +99,10 @@ module Replidog
       slave_connection_pool_table.values.each do |pool|
         pool.connection.clear_query_cache
       end
+    end
+
+    def slave_connection_pools
+      slave_connection_pool_table.values
     end
 
     private
